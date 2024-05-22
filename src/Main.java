@@ -76,16 +76,15 @@ public class Main {
         pane.add(newBtn);
         pane.repaint();
 
+        JPopupMenu popupMenu = createPopupMenu(newBtn, pane);
+
         MouseAdapter mouseAdapter = new MouseAdapter() {
             Point initialClick;
 
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    String newName = JOptionPane.showInputDialog(pane, "Butonun yeni ismini girin:");
-                    if (newName != null && !newName.trim().isEmpty()) {
-                        newBtn.setText(newName);
-                    }
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
                     initialClick = e.getPoint();
                     getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
@@ -133,16 +132,15 @@ public class Main {
         pane.add(newTextField);
         pane.repaint();
 
+        JPopupMenu popupMenu = createPopupMenu(newTextField, pane);
+
         MouseAdapter mouseAdapter = new MouseAdapter() {
             Point initialClick;
 
             @Override
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    String newText = JOptionPane.showInputDialog(pane, "Metin alanının yeni ismini girin:");
-                    if (newText != null && !newText.trim().isEmpty()) {
-                        newTextField.setText(newText);
-                    }
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
                     initialClick = e.getPoint();
                     getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
@@ -181,5 +179,50 @@ public class Main {
 
         newTextField.addMouseListener(mouseAdapter);
         newTextField.addMouseMotionListener(mouseAdapter);
+    }
+
+    private static JPopupMenu createPopupMenu(JComponent component, Container pane) {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        JMenuItem renameItem = new JMenuItem("Yeniden İsimlendir");
+        renameItem.addActionListener(e -> {
+            String newName = JOptionPane.showInputDialog(pane, "Yeni isim girin:");
+            if (newName != null && !newName.trim().isEmpty()) {
+                if (component instanceof JButton) {
+                    ((JButton) component).setText(newName);
+                } else if (component instanceof JTextField) {
+                    ((JTextField) component).setText(newName);
+                }
+            }
+        });
+        popupMenu.add(renameItem);
+
+        JMenuItem deleteItem = new JMenuItem("Sil");
+        deleteItem.addActionListener(e -> {
+            pane.remove(component);
+            pane.repaint();
+        });
+        popupMenu.add(deleteItem);
+
+        JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
+        resizeItem.addActionListener(e -> {
+            String newSize = JOptionPane.showInputDialog(pane, "Yeni boyutları girin (genişlik,yükseklik):");
+            if (newSize != null && !newSize.trim().isEmpty()) {
+                String[] dimensions = newSize.split(",");
+                if (dimensions.length == 2) {
+                    try {
+                        int width = Integer.parseInt(dimensions[0].trim());
+                        int height = Integer.parseInt(dimensions[1].trim());
+                        component.setSize(width, height);
+                        pane.repaint();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(pane, "Geçersiz boyut formatı.", "Hata", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        popupMenu.add(resizeItem);
+
+        return popupMenu;
     }
 }
