@@ -143,12 +143,7 @@ public class add {
         });
         popupMenu.add(renameItem);
 
-        JMenuItem deleteItem = new JMenuItem("Sil");
-        deleteItem.addActionListener(e -> {
-            pane.remove(component);
-            pane.repaint();
-        });
-        popupMenu.add(deleteItem);
+
 
         JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
         resizeItem.addActionListener(e -> {
@@ -169,6 +164,12 @@ public class add {
         });
         popupMenu.add(resizeItem);
 
+        JMenuItem deleteItem = new JMenuItem("Sil");
+        deleteItem.addActionListener(e -> {
+            pane.remove(component);
+            pane.repaint();
+        });
+        popupMenu.add(deleteItem);
         return popupMenu;
     }
 }

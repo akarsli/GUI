@@ -6,7 +6,7 @@ public class Main {
     private static JComponent selectedComponent;
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Null Layout Örneği");
+        JFrame frame = new JFrame("GUI");
         Container pane = frame.getContentPane();
         frame.setLayout(null);
         frame.setSize(1200, 800);
@@ -19,6 +19,10 @@ public class Main {
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
         addTextFieldBtn.setBounds(15, 50, 150, 30);
         pane.add(addTextFieldBtn);
+
+        JButton addLabelBtn = new JButton("Label");
+        addLabelBtn.setBounds(15, 90, 150, 30);
+        pane.add(addLabelBtn);
 
         JPanel dropArea = new JPanel();
         dropArea.setBounds(250, 50, 700, 650);
@@ -51,16 +55,6 @@ public class Main {
             }
         });
 
-        frame.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_DELETE && selectedComponent != null) {
-                    dropArea.remove(selectedComponent);
-                    dropArea.repaint();
-                    selectedComponent = null;
-                }
-            }
-        });
 
         frame.setFocusable(true);
         frame.setVisible(true);
