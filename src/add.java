@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class add {
     private static final int COMPONENT_X = 180;
-    private static final int COMPONENT_Y_BUTTON = 10;
+    private static final int COMPONENT_Y_BUTTON = 50;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
     private static int buttonCounter = 1;
     private static int textfieldCounter = 1;
