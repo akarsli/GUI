@@ -27,7 +27,7 @@ public class Main {
         JPanel dropArea = new JPanel();
         dropArea.setBounds(250, 50, 700, 650);
         dropArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        dropArea.setBackground(Color.LIGHT_GRAY); // Arka plan rengini açık gri yap
+        dropArea.setBackground(new Color(211,211,221)); // Arka plan rengini açık gri yap
         dropArea.setLayout(null);
         pane.add(dropArea);
 
@@ -53,6 +53,13 @@ public class Main {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableTextField();
+            }
+        });
+
+        addLabelBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                add.createDraggableLabel();
             }
         });
 

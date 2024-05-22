@@ -6,8 +6,9 @@ public class add {
     private static final int COMPONENT_X = 180;
     private static final int COMPONENT_Y_BUTTON = 10;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
-    private int buttonCounter = 1;
-    private int textfieldCounter = 1;
+    private static int buttonCounter = 1;
+    private static int textfieldCounter = 1;
+    private static int labelCounter = 1;
     private static JComponent selectedComponent;
     private final Container pane;
 
@@ -127,6 +128,65 @@ public class add {
         newTextField.addMouseMotionListener(mouseAdapter);
     }
 
+    public void createDraggableLabel(){
+        JLabel newLabel = new JLabel("Label" + labelCounter);
+        newLabel.setBorder(BorderFactory.createLineBorder(new Color(255,0,0), 1));
+        labelCounter++;
+        newLabel.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD, 100, 30);
+        pane.add(newLabel);
+        pane.repaint();
+
+        JPopupMenu popupMenu = createPopupMenu(newLabel);
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            Point initialClick;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+                    initialClick = e.getPoint();
+                    getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    selectedComponent = (JComponent) e.getComponent();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                getComponent(e).setCursor(Cursor.getDefaultCursor());
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int thisX = newLabel.getLocation().x;
+                int thisY = newLabel.getLocation().y;
+
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+
+                if (X < 0) X = 0;
+                if (Y < 0) Y = 0;
+                if (X + newLabel.getWidth() > pane.getWidth()) X = pane.getWidth() - newLabel.getWidth();
+                if (Y + newLabel.getHeight() > pane.getHeight()) Y = pane.getHeight() - newLabel.getHeight();
+
+                newLabel.setLocation(X, Y);
+            }
+
+            private Component getComponent(MouseEvent e) {
+                return e.getComponent();
+            }
+        };
+
+        newLabel.addMouseListener(mouseAdapter);
+        newLabel.addMouseMotionListener(mouseAdapter);
+
+
+
+
+}
     private JPopupMenu createPopupMenu(JComponent component) {
         JPopupMenu popupMenu = new JPopupMenu();
 
@@ -138,6 +198,9 @@ public class add {
                     ((JButton) component).setText(newName);
                 } else if (component instanceof JTextField) {
                     ((JTextField) component).setText(newName);
+                }
+                else if (component instanceof JLabel) {
+                    ((JLabel) component).setText(newName);
                 }
             }
         });
