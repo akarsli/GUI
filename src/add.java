@@ -166,10 +166,16 @@ public class add {
 
         JMenuItem deleteItem = new JMenuItem("Sil");
         deleteItem.addActionListener(e -> {
-            pane.remove(component);
-            pane.repaint();
+            String[] options = {"Sil", "İptal"};
+            int response = JOptionPane.showOptionDialog(pane, "Silmek istediğinize emin misiniz?", "Silme Onayı", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+            if (response == 0) {
+                pane.remove(component);
+                pane.repaint();
+            }
         });
         popupMenu.add(deleteItem);
+
+
         return popupMenu;
     }
 }
