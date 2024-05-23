@@ -6,9 +6,9 @@ public class add {
     private static final int COMPONENT_X = 180;
     private static final int COMPONENT_Y_BUTTON = 50;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
-    private static int buttonCounter = 1;
-    private static int textfieldCounter = 1;
-    private static int labelCounter = 1;
+    private static int buttonCounter = 0;
+    private static int textfieldCounter = 0;
+    private static int labelCounter = 0;
     private static JComponent selectedComponent;
     private final Container pane;
 
@@ -232,6 +232,9 @@ public class add {
             String[] options = {"Sil", "İptal"};
             int response = JOptionPane.showOptionDialog(pane, "Silmek istediğinize emin misiniz?", "Silme Onayı", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
             if (response == 0) {
+                if (component instanceof JButton) { buttonCounter--; }
+                else if (component instanceof JTextField) { textfieldCounter--; }
+                else if (component instanceof JLabel) { labelCounter--; }
                 pane.remove(component);
                 pane.repaint();
             }

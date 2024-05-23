@@ -25,9 +25,9 @@ public class Main {
         pane.add(addLabelBtn);
 
         JPanel dropArea = new JPanel();
-        dropArea.setBounds(250, 50, 700, 650);
+        dropArea.setBounds(250, 50, frame.getWidth() - 320, frame.getHeight() - 150);
         dropArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        dropArea.setBackground(new Color(211,211,221)); // Arka plan rengini açık gri yap
+        dropArea.setBackground(new Color(211, 211, 221));
         dropArea.setLayout(null);
         pane.add(dropArea);
 
@@ -37,7 +37,20 @@ public class Main {
         separator.setOpaque(true);
         pane.add(separator);
 
-        Timer timer = new Timer(100, e -> separator.setBounds(200, 0, 1, frame.getHeight()));
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int newHeight = frame.getHeight();
+                int newWidth = frame.getWidth();
+
+                separator.setBounds(200, 0, 1, newHeight); // separator yüksekliğini güncelle
+                dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150); // dropArea genişliğini güncelle
+            }
+        });
+
+
+
+Timer timer = new Timer(100, e -> separator.setBounds(200, 0, 1, frame.getHeight()));
         timer.start();
 
         add add = new add(dropArea);
