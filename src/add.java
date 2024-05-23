@@ -11,6 +11,9 @@ public class add {
     private static int labelCounter = 0;
     private static JComponent selectedComponent;
     private final Container pane;
+    public boolean blnMenu;
+    JMenuBar newMenuBar;
+    JMenuItem addMenu;
 
     public add(Container pane) {
         this.pane = pane;
@@ -182,11 +185,61 @@ public class add {
 
         newLabel.addMouseListener(mouseAdapter);
         newLabel.addMouseMotionListener(mouseAdapter);
+    }
+
+    public boolean isBlnMenu() {
+        return blnMenu;
+    }
+
+    public void createMenuBar(){
+        newMenuBar = new JMenuBar();
+        newMenuBar.setBounds(0,0,pane.getWidth(),30);
+        blnMenu=true;
+        pane.add(newMenuBar);
+        pane.repaint();
+
+        JPopupMenu popupMenuBar = createPopupMenuBar(newMenuBar);
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupMenuBar.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                getComponent(e).setCursor(Cursor.getDefaultCursor());
+            }
+
+            private Component getComponent(MouseEvent e) {
+                return e.getComponent();
+            }
+        };
+
+        newMenuBar.addMouseListener(mouseAdapter);
+        newMenuBar.addMouseMotionListener(mouseAdapter);
+
+    }
+
+    public void adjustMenuBarSize(int newWidth) {
+        if (newMenuBar != null) {
+            newMenuBar.setSize(newWidth, 30);
+            pane.repaint();
+        }
+    }
+
+    public void createMenu() {
+        String menuName = JOptionPane.showInputDialog(pane, "Menu ismini girin:");
+        if (menuName != null && !menuName.trim().isEmpty()) {
+            JMenu newMenu = new JMenu(menuName);
+            newMenuBar.add(newMenu);
+            pane.repaint();
+        }
+    }
 
 
-
-
-}
     private JPopupMenu createPopupMenu(JComponent component) {
         JPopupMenu popupMenu = new JPopupMenu();
 
@@ -205,8 +258,6 @@ public class add {
             }
         });
         popupMenu.add(renameItem);
-
-
 
         JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
         resizeItem.addActionListener(e -> {
@@ -240,8 +291,52 @@ public class add {
             }
         });
         popupMenu.add(deleteItem);
-
-
         return popupMenu;
+    }
+
+    private JPopupMenu createPopupMenuBar(JComponent component) {
+        JPopupMenu popupMenuBar = new JPopupMenu();
+
+        JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
+        resizeItem.addActionListener(e -> {
+            String newSize = JOptionPane.showInputDialog(pane, "Yeni boyutları girin (genişlik,yükseklik):");
+            if (newSize != null && !newSize.trim().isEmpty()) {
+                String[] dimensions = newSize.split(",");
+                if (dimensions.length == 2) {
+                    try {
+                        int width = Integer.parseInt(dimensions[0].trim());
+                        int height = Integer.parseInt(dimensions[1].trim());
+                        component.setSize(width, height);
+                        pane.repaint();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(pane, "Geçersiz boyut formatı.", "Hata", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        popupMenuBar.add(resizeItem);
+
+        JMenuItem deleteItem = new JMenuItem("Sil");
+        deleteItem.addActionListener(e -> {
+            String[] options = {"Sil", "İptal"};
+            int response = JOptionPane.showOptionDialog(pane, "Silmek istediğinize emin misiniz?", "Silme Onayı", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+            if (response == 0) {
+                if (component instanceof JButton) { buttonCounter--; }
+                else if (component instanceof JTextField) { textfieldCounter--; }
+                else if (component instanceof JLabel) { labelCounter--; }
+                blnMenu=false;
+                pane.remove(component);
+                pane.repaint();
+            }
+        });
+        popupMenuBar.add(deleteItem);
+
+        addMenu = new JMenuItem("Menu ekle");
+        addMenu.addActionListener(e ->{
+            createMenu();
+        });
+        popupMenuBar.add(addMenu);
+
+        return popupMenuBar;
     }
 }

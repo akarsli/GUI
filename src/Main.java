@@ -48,6 +48,11 @@ public class Main {
             }
         });
 
+
+
+Timer timer = new Timer(100, e -> separator.setBounds(200, 0, 1, frame.getHeight()));
+        timer.start();
+
         add add = new add(dropArea);
 
         btn.addMouseListener(new MouseAdapter() {
