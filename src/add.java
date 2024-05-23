@@ -235,6 +235,7 @@ public class add {
         if (menuName != null && !menuName.trim().isEmpty()) {
             JMenu newMenu = new JMenu(menuName);
             newMenuBar.add(newMenu);
+            pane.revalidate();
             pane.repaint();
         }
     }
@@ -316,6 +317,12 @@ public class add {
         });
         popupMenuBar.add(resizeItem);
 
+        addMenu = new JMenuItem("Menu ekle");
+        addMenu.addActionListener(e ->{
+            createMenu();
+        });
+        popupMenuBar.add(addMenu);
+
         JMenuItem deleteItem = new JMenuItem("Sil");
         deleteItem.addActionListener(e -> {
             String[] options = {"Sil", "İptal"};
@@ -330,12 +337,6 @@ public class add {
             }
         });
         popupMenuBar.add(deleteItem);
-
-        addMenu = new JMenuItem("Menu ekle");
-        addMenu.addActionListener(e ->{
-            createMenu();
-        });
-        popupMenuBar.add(addMenu);
 
         return popupMenuBar;
     }
