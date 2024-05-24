@@ -35,6 +35,12 @@ public class Main {
         dropArea.setLayout(null);
         pane.add(dropArea);
 
+        JButton generateCodeButton = new JButton("Kod Çıktısını Oluştur");
+        generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-75,150, 30);
+        CodeGenerator codeGenerator = new CodeGenerator(dropArea);
+        generateCodeButton.addActionListener(codeGenerator);
+        pane.add(generateCodeButton);
+
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
         separator.setBounds(200, 0, 1, frame.getHeight());
         separator.setBackground(Color.BLACK);
@@ -48,10 +54,11 @@ public class Main {
             public void componentResized(ComponentEvent e) {
                 int newHeight = frame.getHeight();
                 int newWidth = frame.getWidth();
-
+                generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-75,150, 30);
                 separator.setBounds(200, 0, 1, newHeight);
                 dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
                 add.adjustMenuBarSize(dropArea.getWidth());
+
             }
         });
         btn.addMouseListener(new MouseAdapter() {
