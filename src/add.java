@@ -12,7 +12,7 @@ public class add {
     private static JComponent selectedComponent;
     private final Container pane;
     public boolean blnMenu;
-    JMenuBar newMenuBar;
+    CustomMenuBar newMenuBar;
     JMenuItem addMenu;
 
     public add(Container pane) {
@@ -192,7 +192,7 @@ public class add {
     }
 
     public void createMenuBar(){
-        newMenuBar = new JMenuBar();
+        newMenuBar = new CustomMenuBar();
         newMenuBar.setBounds(0,0,pane.getWidth(),30);
         blnMenu=true;
         pane.add(newMenuBar);
@@ -234,12 +234,12 @@ public class add {
         String menuName = JOptionPane.showInputDialog(pane, "Menu ismini girin:");
         if (menuName != null && !menuName.trim().isEmpty()) {
             JMenu newMenu = new JMenu(menuName);
+            newMenu.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             newMenuBar.add(newMenu);
             pane.revalidate();
             pane.repaint();
         }
     }
-
 
     private JPopupMenu createPopupMenu(JComponent component) {
         JPopupMenu popupMenu = new JPopupMenu();
@@ -339,5 +339,21 @@ public class add {
         popupMenuBar.add(deleteItem);
 
         return popupMenuBar;
+    }
+
+    class CustomMenuBar extends JMenuBar {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(Color.BLACK);
+            for (int i = 0; i < getMenuCount(); i++) {
+                JMenu menu = getMenu(i);
+                if (menu != null) {
+                    Rectangle bounds = menu.getBounds();
+                    g2d.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+                }
+            }
+        }
     }
 }
