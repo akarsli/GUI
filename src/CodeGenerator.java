@@ -16,16 +16,15 @@ public class CodeGenerator implements ActionListener {
         int width = dropArea.getWidth();
         int height = dropArea.getHeight();
         code.append(String.format("""
-                    import javax.swing.*;
-                    import java.awt.*;
-                    import java.awt.event.*;
-                    public class Main {
-                        private static JComponent selectedComponent;
-                        public static void main(String[] args) {
-                            JFrame frame = new JFrame("GUI");
-                            Container pane = frame.getContentPane();
-                            frame.setLayout(null);
-                            frame.setSize(%d ,%d);
+                import javax.swing.*;
+                import java.awt.*;
+                import java.awt.event.*;
+                public class Main {
+                    public static void main(String[] args) {
+                        JFrame frame = new JFrame("GUI");
+                        Container pane = frame.getContentPane();
+                        frame.setLayout(null);
+                        frame.setSize(%d ,%d);
                 """, width, height));
 
         for (Component comp : dropArea.getComponents()) {
@@ -79,7 +78,14 @@ public class CodeGenerator implements ActionListener {
                     }
                 }""");
 
-        System.out.println(code.toString());
+        JTextArea textArea = new JTextArea(code.toString());
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setCaretPosition(0);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(500, 400));
+        JOptionPane.showMessageDialog(null, scrollPane, "Uzun Mesaj", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     private String generateButtonCode(JButton button) {
