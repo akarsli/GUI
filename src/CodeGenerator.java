@@ -41,14 +41,43 @@ public class CodeGenerator implements ActionListener {
             } else if (comp instanceof JMenuBar) {
                 JMenuBar menubar = (JMenuBar) comp;
                 code.append(generateMenuBarCode(menubar)).append("\n");
+            } else if (comp instanceof JComboBox) {
+                JComboBox<?> comboBox = (JComboBox<?>) comp;
+                code.append(generateComboBoxCode(comboBox)).append("\n");
             }
         }
-
-        code.append("frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n");
-        code.append("frame.setFocusable(true);\n");
-        code.append("frame.setVisible(true);\n");
-        code.append("}\n");
-        code.append("}\n");
+        code.append("""
+                frame.addComponentListener(new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        int newHeight = frame.getHeight();
+                        int newWidth = frame.getWidth();
+                        menubar.setBounds(0, 0, frame.getWidth(), 30);
+                    }
+                });
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setFocusable(true);
+                frame.setVisible(true);
+                }}
+                class CustomMenuBar extends JMenuBar {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                        Graphics2D g2d = (Graphics2D) g;
+                        g2d.setColor(Color.BLACK);
+                        for (int i = 0; i < getMenuCount(); i++) {
+                            JMenu menu = getMenu(i);
+                            if (menu != null) {
+                                Rectangle bounds = menu.getBounds();
+                                g2d.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+                                // Remove left border of the first menu
+                                if (i == 0) {
+                                    g2d.clearRect(bounds.x, bounds.y, 1, bounds.height);
+                                }
+                            }
+                        }
+                    }
+                }""");
 
         System.out.println(code.toString());
     }
@@ -89,28 +118,27 @@ public class CodeGenerator implements ActionListener {
     private String generateMenuBarCode(JMenuBar menubar) {
         StringBuilder menuBarCode = new StringBuilder();
         menuBarCode.append(String.format(
-                "JMenuBar menubar%d = new JMenuBar();\n" +
-                        "menubar%d.setBounds(%d, %d, %d, %d);\n",
-                menubar.hashCode(),
-                menubar.hashCode(), menubar.getX(), menubar.getY(), menubar.getWidth(), menubar.getHeight()
+                "CustomMenuBar menubar = new CustomMenuBar();\n" +
+                        "menubar.setBounds(%d, %d, frame.getWidth(), %d);\n",
+                menubar.getX(), menubar.getY(), menubar.getHeight()
         ));
 
         for (int i = 0; i < menubar.getMenuCount(); i++) {
             JMenu menu = menubar.getMenu(i);
-            menuBarCode.append(generateMenuCode(menu, menubar.hashCode())).append("\n");
+            menuBarCode.append(generateMenuCode(menu)).append("\n");
         }
 
-        menuBarCode.append(String.format("pane.add(menubar%d);", menubar.hashCode()));
+        menuBarCode.append("pane.add(menubar);");
         return menuBarCode.toString();
     }
 
-    private String generateMenuCode(JMenu menu, int menuBarHashCode) {
+    private String generateMenuCode(JMenu menu) {
         StringBuilder menuCode = new StringBuilder();
         menuCode.append(String.format(
                 "JMenu menu%d = new JMenu(\"%s\");\n" +
-                        "menubar%d.add(menu%d);\n",
+                        "menubar.add(menu%d);\n",
                 menu.hashCode(), menu.getText(),
-                menuBarHashCode, menu.hashCode()
+                menu.hashCode()
         ));
 
         for (int i = 0; i < menu.getItemCount(); i++) {
@@ -130,5 +158,26 @@ public class CodeGenerator implements ActionListener {
                 menuItem.hashCode(), menuItem.getText(),
                 menuHashCode, menuItem.hashCode()
         );
+    }
+
+    private String generateComboBoxCode(JComboBox<?> comboBox) {
+        StringBuilder comboBoxCode = new StringBuilder();
+        comboBoxCode.append(String.format(
+                "JComboBox comboBox%d = new JComboBox(new String[] {",
+                comboBox.hashCode()
+        ));
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            comboBoxCode.append(String.format("\"%s\"", comboBox.getItemAt(i)));
+            if (i < comboBox.getItemCount() - 1) {
+                comboBoxCode.append(", ");
+            }
+        }
+        comboBoxCode.append(String.format(
+                "});\ncomboBox%d.setBounds(%d, %d, %d, %d);\n" +
+                        "pane.add(comboBox%d);",
+                comboBox.hashCode(), comboBox.getX(), comboBox.getY(), comboBox.getWidth(), comboBox.getHeight(),
+                comboBox.hashCode()
+        ));
+        return comboBoxCode.toString();
     }
 }

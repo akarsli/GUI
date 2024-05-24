@@ -7,9 +7,6 @@ class add {
     private static final int COMPONENT_X = 10;
     private static final int COMPONENT_Y_BUTTON = 50;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
-    private static int buttonCounter = 0;
-    private static int textfieldCounter = 0;
-    private static int labelCounter = 0;
     private static JComponent selectedComponent;
     private final Container pane;
     CustomMenuBar newMenuBar;
@@ -23,8 +20,7 @@ class add {
     }
 
     public void createDraggableButton() {
-        JButton newBtn = new JButton("button" + buttonCounter);
-        buttonCounter++;
+        JButton newBtn = new JButton("Button");
         newBtn.setBounds(COMPONENT_X, COMPONENT_Y_BUTTON, 100, 30);
         pane.add(newBtn);
         pane.repaint();
@@ -79,8 +75,7 @@ class add {
     }
 
     public void createDraggableTextField() {
-        JTextField newTextField = new JTextField("textfield" + textfieldCounter);
-        textfieldCounter++;
+        JTextField newTextField = new JTextField("TextField");
         newTextField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+40, 100, 30);
         pane.add(newTextField);
         pane.repaint();
@@ -135,9 +130,8 @@ class add {
     }
 
     public void createDraggableLabel() {
-        JLabel newLabel = new JLabel("Label" + labelCounter);
+        JLabel newLabel = new JLabel("Label");
         newLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 1));
-        labelCounter++;
         newLabel.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+80, 100, 30);
         pane.add(newLabel);
         pane.repaint();
