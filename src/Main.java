@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    private static JComponent selectedComponent;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");
@@ -20,13 +19,17 @@ public class Main {
         addTextFieldBtn.setBounds(15, 50, 150, 30);
         pane.add(addTextFieldBtn);
 
-        JButton addLabelBtn = new JButton("Label");
+        JButton addLabelBtn = new JButton("Label Ekle");
         addLabelBtn.setBounds(15, 90, 150, 30);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
         addMenuBar.setBounds(15,130,150,30);
         pane.add(addMenuBar);
+
+        JButton addComboBox=new JButton("ComboBox Ekle");
+        addComboBox.setBounds(15, 170,150,30);
+        pane.add(addComboBox);
 
         JPanel dropArea = new JPanel();
         dropArea.setBounds(250, 50, frame.getWidth() - 320, frame.getHeight() - 150);
@@ -41,6 +44,7 @@ public class Main {
         generateCodeButton.addActionListener(codeGenerator);
         pane.add(generateCodeButton);
 
+
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
         separator.setBounds(200, 0, 1, frame.getHeight());
         separator.setBackground(Color.BLACK);
@@ -54,11 +58,11 @@ public class Main {
             public void componentResized(ComponentEvent e) {
                 int newHeight = frame.getHeight();
                 int newWidth = frame.getWidth();
+
                 generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-75,150, 30);
                 separator.setBounds(200, 0, 1, newHeight);
                 dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
                 add.adjustMenuBarSize(dropArea.getWidth());
-
             }
         });
         btn.addMouseListener(new MouseAdapter() {
@@ -92,6 +96,13 @@ public class Main {
                     JOptionPane.showMessageDialog(pane,"MenuBar daha önce oluşturulmuş");
                     popupMenu.show(addMenuBar, e.getX(), e.getY());
                 }
+            }
+        });
+
+        addComboBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                add.createComboBox();
             }
         });
 
