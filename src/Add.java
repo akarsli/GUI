@@ -3,18 +3,20 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class Add {
+class add {
     private static final int COMPONENT_X = 10;
     private static final int COMPONENT_Y_BUTTON = 50;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
+    private static final int MENUBAR_HEIGHT = 30;
     private static JComponent selectedComponent;
     private final Container pane;
     CustomMenuBar newMenuBar;
-    public boolean blnMenu;
+    public boolean blnMenu = false;
     JMenu newMenu;
-    String[] newItem={};
+    JComboBox newComboBox;
+    String[] newItem = {};
 
-    public Add(Container pane) {
+    public add(Container pane) {
         this.pane = pane;
     }
 
@@ -57,7 +59,9 @@ class Add {
                 int Y = thisY + yMoved;
 
                 if (X < 0) X = 0;
-                if (Y < 0) Y = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
                 if (X + newBtn.getWidth() > pane.getWidth()) X = pane.getWidth() - newBtn.getWidth();
                 if (Y + newBtn.getHeight() > pane.getHeight()) Y = pane.getHeight() - newBtn.getHeight();
 
@@ -75,7 +79,7 @@ class Add {
 
     public void createDraggableTextField() {
         JTextField newTextField = new JTextField("TextField");
-        newTextField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+40, 100, 30);
+        newTextField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD + 40, 100, 30);
         pane.add(newTextField);
         pane.repaint();
 
@@ -112,7 +116,9 @@ class Add {
                 int Y = thisY + yMoved;
 
                 if (X < 0) X = 0;
-                if (Y < 0) Y = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
                 if (X + newTextField.getWidth() > pane.getWidth()) X = pane.getWidth() - newTextField.getWidth();
                 if (Y + newTextField.getHeight() > pane.getHeight()) Y = pane.getHeight() - newTextField.getHeight();
 
@@ -131,7 +137,7 @@ class Add {
     public void createDraggableLabel() {
         JLabel newLabel = new JLabel("Label");
         newLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 1));
-        newLabel.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+80, 100, 30);
+        newLabel.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD + 80, 100, 30);
         pane.add(newLabel);
         pane.repaint();
 
@@ -168,7 +174,9 @@ class Add {
                 int Y = thisY + yMoved;
 
                 if (X < 0) X = 0;
-                if (Y < 0) Y = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
                 if (X + newLabel.getWidth() > pane.getWidth()) X = pane.getWidth() - newLabel.getWidth();
                 if (Y + newLabel.getHeight() > pane.getHeight()) Y = pane.getHeight() - newLabel.getHeight();
 
@@ -234,7 +242,7 @@ class Add {
             pane.revalidate();
             pane.repaint();
 
-            JPopupMenu popupMenu = createPopupMenu(newMenu);
+            JPopupMenu popupMenu = createPopupMenuItem(newMenu);
             newMenu.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -258,15 +266,25 @@ class Add {
         }
     }
 
-    public void createDraggableComboBox(){
-        JComboBox newComboBox=new JComboBox(newItem);
-        newComboBox.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+120,100,30);
+    public void createComboBox() {
+        newComboBox = new JComboBox(newItem);
+        newComboBox.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD + 120, 100, 30);
         pane.add(newComboBox);
         pane.repaint();
         pane.revalidate();
 
-
         JPopupMenu PopupComboBox = createPopupComboBox(newComboBox);
+        newComboBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    PopupComboBox.show(e.getComponent(), e.getX(), e.getY());
+                    pane.repaint();
+                    pane.revalidate();
+                }
+            }
+        });
+
         MouseAdapter mouseAdapter = new MouseAdapter() {
             Point initialClick;
 
@@ -276,14 +294,14 @@ class Add {
                     PopupComboBox.show(e.getComponent(), e.getX(), e.getY());
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
                     initialClick = e.getPoint();
-                    getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-                    selectedComponent = (JComponent) e.getComponent();
+                    newComboBox.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    selectedComponent = newComboBox;
                 }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                getComponent(e).setCursor(Cursor.getDefaultCursor());
+                newComboBox.setCursor(Cursor.getDefaultCursor());
             }
 
             @Override
@@ -297,17 +315,17 @@ class Add {
                 int X = thisX + xMoved;
                 int Y = thisY + yMoved;
 
-
                 if (X < 0) X = 0;
-                if (Y < 0) Y = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
                 if (X + newComboBox.getWidth() > pane.getWidth()) X = pane.getWidth() - newComboBox.getWidth();
                 if (Y + newComboBox.getHeight() > pane.getHeight()) Y = pane.getHeight() - newComboBox.getHeight();
 
                 newComboBox.setLocation(X, Y);
-            }
 
-            private Component getComponent(MouseEvent e) {
-                return e.getComponent();
+                pane.repaint();
+                pane.revalidate();
             }
         };
 
@@ -388,7 +406,7 @@ class Add {
         return popupMenuBar;
     }
 
-    public JPopupMenu createPopupMenu(JMenu menu) {
+    public JPopupMenu createPopupMenuItem(JMenu menu) {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenuItem addItem = new JMenuItem("Item Ekle");
@@ -429,16 +447,16 @@ class Add {
         return popupMenu;
     }
 
-    public JPopupMenu createPopupComboBox(JComboBox comboBox){
+    public JPopupMenu createPopupComboBox(JComboBox comboBox) {
 
-        JPopupMenu PopupComboBox=new JPopupMenu();
+        JPopupMenu PopupComboBox = new JPopupMenu();
 
         JMenuItem addItem = new JMenuItem("Item Ekle");
         addItem.addActionListener(e -> {
             String itemName = JOptionPane.showInputDialog(pane, "Item ismi girin:");
             if (itemName != null && !itemName.trim().isEmpty()) {
 
-                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) comboBox.getModel();
+                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) newComboBox.getModel();
                 model.addElement(itemName);
 
                 pane.repaint();
@@ -447,37 +465,48 @@ class Add {
         });
         PopupComboBox.add(addItem);
 
-        JMenuItem removeItem=new JMenuItem("Item sil");
-        removeItem.addActionListener(e ->{
-            // Get the existing items in the ComboBox model
-            DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) comboBox.getModel();
-            int itemCount = model.getSize();
-
-            // If there are no items, show a message
-            if (itemCount == 0) {
-                JOptionPane.showMessageDialog(pane, "ComboBox'ta silinecek öğe yok.", "Bilgi", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            // Create an array to store the existing item names
-            String[] comboBoxItems = new String[itemCount];
-            for (int i = 0; i < itemCount; i++) {
-                comboBoxItems[i] = model.getElementAt(i);
-            }
-
-            // Display the list of items in a JOptionPane showOptionDialog
-            int selectedIndex = JOptionPane.showOptionDialog(pane, "Silmek istediğiniz öğeyi seçin:", "Öğe Seçimi", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, comboBoxItems, comboBoxItems[0]);
-
-            // If an item is selected, remove it from the model
-            if (selectedIndex != JOptionPane.CLOSED_OPTION) {
-                model.removeElementAt(selectedIndex);
+        JMenuItem removeItem = new JMenuItem("Item sil");
+        removeItem.addActionListener(e -> {
+            String itemName = JOptionPane.showInputDialog(pane, "Silinecek item ismini girin:");
+            if (itemName != null && !itemName.trim().isEmpty()) {
+                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) newComboBox.getModel();
+                model.removeElement(itemName);
                 pane.repaint();
                 pane.revalidate();
             }
         });
         PopupComboBox.add(removeItem);
 
-        // ... rest of the code for resizeItem and removeComboBox
+        JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
+        resizeItem.addActionListener(e -> {
+            String newSize = JOptionPane.showInputDialog(pane, "Yeni boyutları girin (genişlik,yükseklik):");
+            if (newSize != null && !newSize.trim().isEmpty()) {
+                String[] dimensions = newSize.split(",");
+                if (dimensions.length == 2) {
+                    try {
+                        int width = Integer.parseInt(dimensions[0].trim());
+                        int height = Integer.parseInt(dimensions[1].trim());
+                        comboBox.setSize(width, height);
+                        pane.repaint();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(pane, "Geçersiz boyut formatı.", "Hata", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        PopupComboBox.add(resizeItem);
+
+        JMenuItem removeComboBox = new JMenuItem("ComboBox sil");
+        removeComboBox.addActionListener(e -> {
+            String[] options = {"Sil", "İptal"};
+            int response = JOptionPane.showOptionDialog(pane, "ComboBox silmek istediğinize emin misiniz?", "Silme Onayı", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+            if (response == JOptionPane.YES_OPTION) {
+                pane.remove(comboBox);
+                pane.repaint();
+                pane.revalidate();
+            }
+        });
+        PopupComboBox.add(removeComboBox);
 
         return PopupComboBox;
     }

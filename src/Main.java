@@ -13,7 +13,7 @@ public class Main {
 
         JButton btn = new JButton("Buton Ekle");
         btn.setBounds(15, 50, 150, 30);
-        btn.setBackground(new Color(30, 135, 229));
+        btn.setBackground(new Color(30, 136, 229));
         btn.setForeground(Color.WHITE);
         pane.add(btn);
 
