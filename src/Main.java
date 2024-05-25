@@ -48,7 +48,7 @@ public class Main {
         dropArea.setLayout(null);
         pane.add(dropArea);
 
-        JCheckBox gridOnOff = new JCheckBox("Izgarayı aç / kapa", true);
+        JCheckBox gridOnOff = new JCheckBox("Izgarayı aç / kapa", false);
         gridOnOff.setBounds(30, frame.getHeight() - 130, 150, 30);
         gridOnOff.addActionListener(e -> dropArea.setShowGrid(gridOnOff.isSelected()));
         pane.add(gridOnOff);
@@ -134,7 +134,7 @@ public class Main {
 
         public GridPanel(int gridSize) {
             this.gridSize = gridSize;
-            this.showGrid = true;
+            this.showGrid = false;
 
             addMouseListener(new MouseAdapter() {
                 @Override
