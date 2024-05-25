@@ -460,15 +460,32 @@ class add {
         removeItem.addActionListener(e ->{
             String itemName=JOptionPane.showInputDialog(pane,"Silinecek item ismini girin:");
             if (itemName != null && !itemName.trim().isEmpty()) {
-
                 DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) newComboBox.getModel();
                 model.removeElement(itemName);
-
                 pane.repaint();
                 pane.revalidate();
             }
         });
         PopupComboBox.add(removeItem);
+
+        JMenuItem resizeItem = new JMenuItem("Yeniden Boyutlandır");
+        resizeItem.addActionListener(e -> {
+            String newSize = JOptionPane.showInputDialog(pane, "Yeni boyutları girin (genişlik,yükseklik):");
+            if (newSize != null && !newSize.trim().isEmpty()) {
+                String[] dimensions = newSize.split(",");
+                if (dimensions.length == 2) {
+                    try {
+                        int width = Integer.parseInt(dimensions[0].trim());
+                        int height = Integer.parseInt(dimensions[1].trim());
+                        comboBox.setSize(width, height);
+                        pane.repaint();
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(pane, "Geçersiz boyut formatı.", "Hata", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        PopupComboBox.add(resizeItem);
 
         JMenuItem removeComboBox = new JMenuItem("ComboBox sil");
         removeComboBox.addActionListener(e -> {
