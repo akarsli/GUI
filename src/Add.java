@@ -498,7 +498,6 @@ class Add {
             }
         });
         PopupComboBox.add(removeComboBox);
-
         return PopupComboBox;
     }
 
