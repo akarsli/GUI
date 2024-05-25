@@ -12,33 +12,23 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JButton btn = new JButton("Buton Ekle");
-        btn.setBounds(15, 50, 150, 30);
-        btn.setBackground(new Color(30, 136, 229));
-        btn.setForeground(Color.WHITE);
+        btn.setBounds(15, 10, 150, 30);
         pane.add(btn);
 
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
-        addTextFieldBtn.setBounds(15, 90, 150, 30);
-        addTextFieldBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
-        addTextFieldBtn.setForeground(Color.WHITE);
+        addTextFieldBtn.setBounds(15, 50, 150, 30);
         pane.add(addTextFieldBtn);
 
         JButton addLabelBtn = new JButton("Label Ekle");
-        addLabelBtn.setBounds(15, 130, 150, 30);
-        addLabelBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
-        addLabelBtn.setForeground(Color.WHITE);
+        addLabelBtn.setBounds(15, 90, 150, 30);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
-        addMenuBar.setBounds(15,10,150,30);
-        addMenuBar.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
-        addMenuBar.setForeground(Color.WHITE);
+        addMenuBar.setBounds(15,130,150,30);
         pane.add(addMenuBar);
 
         JButton addComboBox=new JButton("ComboBox Ekle");
         addComboBox.setBounds(15, 170,150,30);
-        addComboBox.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
-        addComboBox.setForeground(Color.WHITE);
         pane.add(addComboBox);
 
         JPanel dropArea = new JPanel();
@@ -49,11 +39,9 @@ public class Main {
         pane.add(dropArea);
 
         JButton generateCodeButton = new JButton("Kod Çıktısını Oluştur");
-        generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-60,150, 30);
+        generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-75,200, 30);
         CodeGenerator codeGenerator = new CodeGenerator(dropArea);
         generateCodeButton.addActionListener(codeGenerator);
-        generateCodeButton.setBackground(new Color(30, 136, 229));
-        generateCodeButton.setForeground(Color.WHITE);
         pane.add(generateCodeButton);
 
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
@@ -62,14 +50,14 @@ public class Main {
         separator.setOpaque(true);
         pane.add(separator);
 
-        Add add = new Add(dropArea);
+        add add = new add(dropArea);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 int newHeight = frame.getHeight();
                 int newWidth = frame.getWidth();
-                generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-83,170, 30);
+                generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-75,200, 30);
                 separator.setBounds(200, 0, 1, newHeight);
                 dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
                 add.adjustMenuBarSize(dropArea.getWidth());
@@ -112,7 +100,7 @@ public class Main {
         addComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                add.createDraggableComboBox();
+                add.createComboBox();
             }
         });
 
