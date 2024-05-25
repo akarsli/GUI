@@ -20,29 +20,29 @@ public class Main {
 
             JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
             addTextFieldBtn.setBounds(15, 90, 150, 30);
-            addTextFieldBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+            addTextFieldBtn.setBackground(new Color(30, 136, 229));
             addTextFieldBtn.setForeground(Color.WHITE);
             pane.add(addTextFieldBtn);
 
             JButton addLabelBtn = new JButton("Label Ekle");
             addLabelBtn.setBounds(15, 130, 150, 30);
-            addLabelBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+            addLabelBtn.setBackground(new Color(30, 136, 229));
             addLabelBtn.setForeground(Color.WHITE);
             pane.add(addLabelBtn);
 
             JButton addMenuBar=new JButton("Menü Bar Ekle");
             addMenuBar.setBounds(15,10,150,30);
-            addMenuBar.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+            addMenuBar.setBackground(new Color(30, 136, 229));
             addMenuBar.setForeground(Color.WHITE);
             pane.add(addMenuBar);
 
             JButton addComboBox=new JButton("ComboBox Ekle");
             addComboBox.setBounds(15, 170,150,30);
-            addComboBox.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+            addComboBox.setBackground(new Color(30, 136, 229));
             addComboBox.setForeground(Color.WHITE);
             pane.add(addComboBox);
 
-            GridPanel dropArea = new GridPanel(20); // Grid size of 20 pixels
+            GridPanel dropArea = new GridPanel(20);
             dropArea.setBounds(250, 50, frame.getWidth() - 320, frame.getHeight() - 150);
             dropArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
             dropArea.setBackground(new Color(211, 211, 221));
