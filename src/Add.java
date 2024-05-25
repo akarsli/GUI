@@ -77,7 +77,7 @@ class Add {
     }
 
     public void createDraggableTextField() {
-        JTextField newTextField = new JTextField("TextField");
+        JTextField newTextField = new JTextField();
         newTextField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+40, 100, 30);
         pane.add(newTextField);
         pane.repaint();
