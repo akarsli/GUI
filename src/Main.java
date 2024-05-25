@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    private static final Color COLOR = new Color(30, 136, 229);
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");
         Container pane = frame.getContentPane();
@@ -13,31 +13,31 @@ public class Main {
 
         JButton btn = new JButton("Buton Ekle");
         btn.setBounds(15, 50, 150, 30);
-        btn.setBackground(COLOR);
+        btn.setBackground(new Color(30, 136, 229));
         btn.setForeground(Color.WHITE);
         pane.add(btn);
 
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
         addTextFieldBtn.setBounds(15, 90, 150, 30);
-        addTextFieldBtn.setBackground(COLOR);
+        addTextFieldBtn.setBackground(new Color(30, 136, 229));
         addTextFieldBtn.setForeground(Color.WHITE);
         pane.add(addTextFieldBtn);
 
         JButton addLabelBtn = new JButton("Label Ekle");
         addLabelBtn.setBounds(15, 130, 150, 30);
-        addLabelBtn.setBackground(COLOR);
+        addLabelBtn.setBackground(new Color(30, 136, 229));
         addLabelBtn.setForeground(Color.WHITE);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
         addMenuBar.setBounds(15,10,150,30);
-        addMenuBar.setBackground(COLOR);
+        addMenuBar.setBackground(new Color(30, 136, 229));
         addMenuBar.setForeground(Color.WHITE);
         pane.add(addMenuBar);
 
         JButton addComboBox=new JButton("ComboBox Ekle");
         addComboBox.setBounds(15, 170,150,30);
-        addComboBox.setBackground(COLOR);
+        addComboBox.setBackground(new Color(30, 136, 229));
         addComboBox.setForeground(Color.WHITE);
         pane.add(addComboBox);
 
@@ -52,7 +52,7 @@ public class Main {
         generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-60,150, 30);
         CodeGenerator codeGenerator = new CodeGenerator(dropArea);
         generateCodeButton.addActionListener(codeGenerator);
-        generateCodeButton.setBackground(COLOR);
+        generateCodeButton.setBackground(new Color(30, 136, 229));
         generateCodeButton.setForeground(Color.WHITE);
         pane.add(generateCodeButton);
 
@@ -112,7 +112,7 @@ public class Main {
         addComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                add.createComboBox();
+                add.createDraggableComboBox();
             }
         });
 
