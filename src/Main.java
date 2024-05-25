@@ -53,12 +53,12 @@ public class Main {
         gridOnOff.addActionListener(e -> dropArea.setShowGrid(gridOnOff.isSelected()));
         pane.add(gridOnOff);
 
-        JButton generateCodeButton = new JButton("Kod Çıktısını Oluştur");
-        generateCodeButton.setBounds((frame.getWidth() - 320) / 2 + 175, frame.getHeight() - 75, 150, 30);
+        JButton generateCodeButton = new JButton("Kod Çıktısını Kopyala");
+        generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-60,150, 30);
+        CopyCode codeGenerator = new CopyCode(dropArea);
+        generateCodeButton.addActionListener(codeGenerator);
         generateCodeButton.setBackground(COLOR);
         generateCodeButton.setForeground(Color.WHITE);
-        CodeGenerator codeGenerator = new CodeGenerator(dropArea);
-        generateCodeButton.addActionListener(codeGenerator);
         pane.add(generateCodeButton);
 
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);

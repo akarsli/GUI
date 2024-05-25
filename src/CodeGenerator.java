@@ -2,17 +2,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class CodeGenerator implements ActionListener {
     private final Container dropArea;
-
+    private StringBuilder code;
+    private boolean isJMenuBar = false;
     public CodeGenerator(Container dropArea) {
         this.dropArea = dropArea;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        StringBuilder code = new StringBuilder();
+        generateCode();
+        JTextArea textArea = new JTextArea(code.toString());
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setCaretPosition(0);
+//        JScrollPane scrollPane = new JScrollPane(textArea);
+//        scrollPane.setPreferredSize(new Dimension(500, 400));
+//        JOptionPane.showMessageDialog(null, scrollPane, "Generated Code", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void generateCode() {
+        code = new StringBuilder();
         int width = dropArea.getWidth();
         int height = dropArea.getHeight();
         code.append(String.format("""
@@ -26,7 +39,6 @@ public class CodeGenerator implements ActionListener {
                 frame.setLayout(null);
                 frame.setSize(%d ,%d);
                 """, width, height));
-
         for (Component comp : dropArea.getComponents()) {
             if (comp instanceof JButton) {
                 JButton button = (JButton) comp;
@@ -39,20 +51,25 @@ public class CodeGenerator implements ActionListener {
                 code.append(generateLabelCode(label));
             } else if (comp instanceof JMenuBar) {
                 JMenuBar menubar = (JMenuBar) comp;
+                isJMenuBar = true;
                 code.append(generateMenuBarCode(menubar));
             } else if (comp instanceof JComboBox) {
                 JComboBox<?> comboBox = (JComboBox<?>) comp;
                 code.append(generateComboBoxCode(comboBox));
             }
         }
+
+        if (isJMenuBar) {
+            code.append("""
+                    \nframe.addComponentListener(new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                    int newHeight = frame.getHeight();
+                    int newWidth = frame.getWidth();
+                    menubar.setBounds(0, 0, frame.getWidth(), 30);}});
+                    """);
+        }
         code.append("""
-                frame.addComponentListener(new ComponentAdapter() {
-                @Override
-                public void componentResized(ComponentEvent e) {
-                int newHeight = frame.getHeight();
-                int newWidth = frame.getWidth();
-                menubar.setBounds(0, 0, frame.getWidth(), 30);
-                }});
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setFocusable(true);
                 frame.setVisible(true);
@@ -73,15 +90,6 @@ public class CodeGenerator implements ActionListener {
                 g2d.clearRect(bounds.x, bounds.y, 1, bounds.height);
                 }}}}}
                 """);
-
-        JTextArea textArea = new JTextArea(code.toString());
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setCaretPosition(0);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(500, 400));
-        JOptionPane.showMessageDialog(null, scrollPane, "Uzun Mesaj", JOptionPane.INFORMATION_MESSAGE);
-
     }
 
     private String generateButtonCode(JButton button) {
@@ -181,5 +189,9 @@ public class CodeGenerator implements ActionListener {
                 comboBox.hashCode()
         ));
         return comboBoxCode.toString();
+    }
+
+    public String getGeneratedCode() {
+        return code != null ? code.toString() : "";
     }
 }
