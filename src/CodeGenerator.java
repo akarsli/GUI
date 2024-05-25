@@ -19,9 +19,6 @@ public class CodeGenerator implements ActionListener {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setCaretPosition(0);
-//        JScrollPane scrollPane = new JScrollPane(textArea);
-//        scrollPane.setPreferredSize(new Dimension(500, 400));
-//        JOptionPane.showMessageDialog(null, scrollPane, "Generated Code", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void generateCode() {

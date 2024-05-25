@@ -397,7 +397,7 @@ class Add {
         return popupMenuBar;
     }
 
-    public JPopupMenu createPopupMenu(JMenu menu) {
+    private JPopupMenu createPopupMenu(JMenu menu) {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenuItem addItem = new JMenuItem("Item Ekle");
@@ -438,7 +438,7 @@ class Add {
         return popupMenu;
     }
 
-    public JPopupMenu createPopupComboBox(JComboBox comboBox) {
+    private JPopupMenu createPopupComboBox(JComboBox comboBox) {
 
         JPopupMenu PopupComboBox = new JPopupMenu();
 
