@@ -112,7 +112,7 @@ public class Main {
         addComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                add.createDraggableComboBox();
+                add.createComboBox();
             }
         });
 
