@@ -30,14 +30,14 @@ public class Main {
             addLabelBtn.setForeground(Color.WHITE);
             pane.add(addLabelBtn);
 
-            JButton addMenuBar=new JButton("Menü Bar Ekle");
-            addMenuBar.setBounds(15,10,150,30);
+            JButton addMenuBar = new JButton("Menü Bar Ekle");
+            addMenuBar.setBounds(15, 10, 150, 30);
             addMenuBar.setBackground(new Color(30, 136, 229));
             addMenuBar.setForeground(Color.WHITE);
             pane.add(addMenuBar);
 
-            JButton addComboBox=new JButton("ComboBox Ekle");
-            addComboBox.setBounds(15, 170,150,30);
+            JButton addComboBox = new JButton("ComboBox Ekle");
+            addComboBox.setBounds(15, 170, 150, 30);
             addComboBox.setBackground(new Color(30, 136, 229));
             addComboBox.setForeground(Color.WHITE);
             pane.add(addComboBox);
@@ -75,10 +75,11 @@ public class Main {
                 public void componentResized(ComponentEvent e) {
                     int newHeight = frame.getHeight();
                     int newWidth = frame.getWidth();
-                    generateCodeButton.setBounds((frame.getWidth() - 320) / 2 + 175, frame.getHeight() - 75, 150, 30);
+
+                    generateCodeButton.setBounds((newWidth - 320) / 2 + 175, newHeight - 83, 170, 30);
                     separator.setBounds(200, 0, 1, newHeight);
                     dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
-                    gridOnOff.setBounds(30, frame.getHeight() - 130, 150, 30);
+                    gridOnOff.setBounds(30, newHeight - 130, 150, 30);
                     add.adjustMenuBarSize(dropArea.getWidth());
                 }
             });
@@ -198,5 +199,4 @@ public class Main {
             repaint();
         }
     }
-
 }
