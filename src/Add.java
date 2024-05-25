@@ -234,7 +234,7 @@ class Add {
             pane.revalidate();
             pane.repaint();
 
-            JPopupMenu popupMenu = createPopupMenuItem(newMenu);
+            JPopupMenu popupMenu = createPopupMenu(newMenu);
             newMenu.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -388,7 +388,7 @@ class Add {
         return popupMenuBar;
     }
 
-    public JPopupMenu createPopupMenuItem(JMenu menu) {
+    public JPopupMenu createPopupMenu(JMenu menu) {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenuItem addItem = new JMenuItem("Item Ekle");
