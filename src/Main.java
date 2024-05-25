@@ -10,7 +10,7 @@ public class Main {
 
         public GridPanel(int gridSize) {
             this.gridSize = gridSize;
-            this.showGrid = true; // Show grid by default
+            this.showGrid = true;
 
             addMouseListener(new MouseAdapter() {
                 @Override
