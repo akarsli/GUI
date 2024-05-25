@@ -12,7 +12,6 @@ public class Main {
             this.gridSize = gridSize;
             this.showGrid = true; // Show grid by default
 
-            // Add mouse listener to detect right-clicks
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -37,12 +36,10 @@ public class Main {
 
             g.setColor(Color.LIGHT_GRAY);
 
-            // Draw vertical lines
             for (int x = 0; x < width; x += gridSize) {
                 g.drawLine(x, 0, x, height);
             }
 
-            // Draw horizontal lines
             for (int y = 0; y < height; y += gridSize) {
                 g.drawLine(0, y, width, y);
             }
