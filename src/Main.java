@@ -13,22 +13,32 @@ public class Main {
 
         JButton btn = new JButton("Buton Ekle");
         btn.setBounds(15, 50, 150, 30);
+        btn.setBackground(new Color(30, 136, 229));
+        btn.setForeground(Color.WHITE);
         pane.add(btn);
 
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
         addTextFieldBtn.setBounds(15, 90, 150, 30);
+        addTextFieldBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+        addTextFieldBtn.setForeground(Color.WHITE);
         pane.add(addTextFieldBtn);
 
         JButton addLabelBtn = new JButton("Label Ekle");
         addLabelBtn.setBounds(15, 130, 150, 30);
+        addLabelBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+        addLabelBtn.setForeground(Color.WHITE);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
         addMenuBar.setBounds(15,10,150,30);
+        addMenuBar.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+        addMenuBar.setForeground(Color.WHITE);
         pane.add(addMenuBar);
 
         JButton addComboBox=new JButton("ComboBox Ekle");
         addComboBox.setBounds(15, 170,150,30);
+        addComboBox.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+        addComboBox.setForeground(Color.WHITE);
         pane.add(addComboBox);
 
         JPanel dropArea = new JPanel();
