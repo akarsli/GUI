@@ -50,7 +50,7 @@ public class Main {
         separator.setOpaque(true);
         pane.add(separator);
 
-        add add = new add(dropArea);
+        Add add = new Add(dropArea);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override

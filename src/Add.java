@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class add {
+class Add {
     private static final int COMPONENT_X = 10;
     private static final int COMPONENT_Y_BUTTON = 50;
     private static final int COMPONENT_Y_TEXTFIELD = 50;
@@ -14,7 +14,7 @@ class add {
     JMenu newMenu;
     String[] newItem={};
 
-    public add(Container pane) {
+    public Add(Container pane) {
         this.pane = pane;
     }
 
