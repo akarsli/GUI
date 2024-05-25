@@ -12,19 +12,19 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JButton btn = new JButton("Buton Ekle");
-        btn.setBounds(15, 10, 150, 30);
+        btn.setBounds(15, 50, 150, 30);
         pane.add(btn);
 
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
-        addTextFieldBtn.setBounds(15, 50, 150, 30);
+        addTextFieldBtn.setBounds(15, 90, 150, 30);
         pane.add(addTextFieldBtn);
 
         JButton addLabelBtn = new JButton("Label Ekle");
-        addLabelBtn.setBounds(15, 90, 150, 30);
+        addLabelBtn.setBounds(15, 130, 150, 30);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
-        addMenuBar.setBounds(15,130,150,30);
+        addMenuBar.setBounds(15,10,150,30);
         pane.add(addMenuBar);
 
         JButton addComboBox=new JButton("ComboBox Ekle");
