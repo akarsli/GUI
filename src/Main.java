@@ -25,7 +25,7 @@ public class Main {
 
         JButton addLabelBtn = new JButton("Label Ekle");
         addLabelBtn.setBounds(15, 130, 150, 30);
-        addLabelBtn.setBackground(new Color(30, 136, 229)); // Koyu mavi arkaplan
+        addLabelBtn.setBackground(new Color(30, 135, 229)); // Koyu mavi arkaplan
         addLabelBtn.setForeground(Color.WHITE);
         pane.add(addLabelBtn);
 
