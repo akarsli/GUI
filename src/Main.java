@@ -74,7 +74,6 @@ public class Main {
             public void componentResized(ComponentEvent e) {
                 int newHeight = frame.getHeight();
                 int newWidth = frame.getWidth();
-
                 generateCodeButton.setBounds((newWidth - 320) / 2 + 175, newHeight - 83, 170, 30);
                 separator.setBounds(200, 0, 1, newHeight);
                 dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
