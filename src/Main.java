@@ -19,25 +19,25 @@ public class Main {
 
         JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
         addTextFieldBtn.setBounds(15, 90, 150, 30);
-        addTextFieldBtn.setBackground(COLOR); // Koyu mavi arkaplan
+        addTextFieldBtn.setBackground(COLOR);
         addTextFieldBtn.setForeground(Color.WHITE);
         pane.add(addTextFieldBtn);
 
         JButton addLabelBtn = new JButton("Label Ekle");
         addLabelBtn.setBounds(15, 130, 150, 30);
-        addLabelBtn.setBackground(COLOR); // Koyu mavi arkaplan
+        addLabelBtn.setBackground(COLOR);
         addLabelBtn.setForeground(Color.WHITE);
         pane.add(addLabelBtn);
 
         JButton addMenuBar=new JButton("Menü Bar Ekle");
         addMenuBar.setBounds(15,10,150,30);
-        addMenuBar.setBackground(COLOR); // Koyu mavi arkaplan
+        addMenuBar.setBackground(COLOR);
         addMenuBar.setForeground(Color.WHITE);
         pane.add(addMenuBar);
 
         JButton addComboBox=new JButton("ComboBox Ekle");
         addComboBox.setBounds(15, 170,150,30);
-        addComboBox.setBackground(COLOR); // Koyu mavi arkaplan
+        addComboBox.setBackground(COLOR);
         addComboBox.setForeground(Color.WHITE);
         pane.add(addComboBox);
 
