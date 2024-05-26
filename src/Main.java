@@ -47,6 +47,12 @@ public class Main {
         btnAddCheckBox.setForeground(Color.WHITE);
         pane.add(btnAddCheckBox);
 
+        JButton btnAddPasswordField = new JButton("PasswordField Ekle");
+        btnAddPasswordField.setBounds(15, 250, 150, 30);
+        btnAddPasswordField.setBackground(COLOR);
+        btnAddPasswordField.setForeground(Color.WHITE);
+        pane.add(btnAddPasswordField);
+
         GridPanel dropArea = new GridPanel(20);
         dropArea.setBounds(250, 50, frame.getWidth() - 320, frame.getHeight() - 150);
         dropArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
@@ -133,6 +139,13 @@ public class Main {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableCheckBox();
+            }
+        });
+
+        btnAddPasswordField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                add.createDraggablePasswordField();
             }
         });
 

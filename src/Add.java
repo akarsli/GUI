@@ -382,6 +382,62 @@ class Add {
         newCheckBox.addMouseMotionListener(mouseAdapter);
     }
 
+    public void createDraggablePasswordField() {
+        JPasswordField newPasswordField = new JPasswordField();
+        newPasswordField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD + 200, 100, 30);
+        pane.add(newPasswordField);
+        pane.revalidate();
+        pane.repaint();
+
+        JPopupMenu popupMenu = createPopup(newPasswordField);
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            Point initialClick;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+                    initialClick = e.getPoint();
+                    getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    selectedComponent = (JComponent) e.getComponent();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                getComponent(e).setCursor(Cursor.getDefaultCursor());
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int thisX = newPasswordField.getLocation().x;
+                int thisY = newPasswordField.getLocation().y;
+
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+
+                if (X < 0) X = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
+                if (X + newPasswordField.getWidth() > pane.getWidth()) X = pane.getWidth() - newPasswordField.getWidth();
+                if (Y + newPasswordField.getHeight() > pane.getHeight()) Y = pane.getHeight() - newPasswordField.getHeight();
+
+                newPasswordField.setLocation(X, Y);
+            }
+
+            private Component getComponent(MouseEvent e) {
+                return e.getComponent();
+            }
+        };
+
+        newPasswordField.addMouseListener(mouseAdapter);
+        newPasswordField.addMouseMotionListener(mouseAdapter);
+    }
 
     private JPopupMenu createPopup(JComponent component) {
         JPopupMenu popupMenu = new JPopupMenu();
