@@ -40,9 +40,6 @@ public class CodeGenerator implements ActionListener {
             if (comp instanceof JButton) {
                 JButton button = (JButton) comp;
                 code.append(generateButtonCode(button));
-            } else if (comp instanceof JTextField) {
-                JTextField textField = (JTextField) comp;
-                code.append(generateTextFieldCode(textField));
             } else if (comp instanceof JLabel) {
                 JLabel label = (JLabel) comp;
                 code.append(generateLabelCode(label));
@@ -56,6 +53,12 @@ public class CodeGenerator implements ActionListener {
             } else if(comp instanceof JCheckBox) {
                 JCheckBox checkBox= (JCheckBox) comp;
                 code.append(generateCheckBoxCode(checkBox));
+            } else if (comp instanceof JPasswordField) {
+                JPasswordField passwordField= (JPasswordField) comp;
+                code.append(generatePasswordField(passwordField));
+            } else if (comp instanceof JTextField) {
+                JTextField textField = (JTextField) comp;
+                code.append(generateTextFieldCode(textField));
             }
         }
 
@@ -199,6 +202,17 @@ public class CodeGenerator implements ActionListener {
                 checkBox.hashCode(), checkBox.getText(),
                 checkBox.hashCode(), checkBox.getX(), checkBox.getY(), checkBox.getWidth(), checkBox.getHeight(),
                 checkBox.hashCode()
+        );
+    }
+
+    private String generatePasswordField(JPasswordField passwordField){
+        return String.format(
+                "JPasswordField passwordField%d = new JPasswordField(\"%s\");\n" +
+                        "passwordField%d.setBounds(%d, %d, %d, %d);\n" +
+                        "pane.add(passwordField%d);\n",
+                passwordField.hashCode(), passwordField.getText(),
+                passwordField.hashCode(), passwordField.getX(), passwordField.getY(), passwordField.getWidth(), passwordField.getHeight(),
+                passwordField.hashCode()
         );
     }
 
