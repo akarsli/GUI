@@ -11,35 +11,41 @@ public class Main {
         frame.setSize(1200, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JButton btn = new JButton("Buton Ekle");
-        btn.setBounds(15, 50, 150, 30);
-        btn.setBackground(COLOR);
-        btn.setForeground(Color.WHITE);
-        pane.add(btn);
+        JButton btnAddButton = new JButton("Buton Ekle");
+        btnAddButton.setBounds(15, 50, 150, 30);
+        btnAddButton.setBackground(COLOR);
+        btnAddButton.setForeground(Color.WHITE);
+        pane.add(btnAddButton);
 
-        JButton addTextFieldBtn = new JButton("Metin Alanı Ekle");
-        addTextFieldBtn.setBounds(15, 90, 150, 30);
-        addTextFieldBtn.setBackground(COLOR);
-        addTextFieldBtn.setForeground(Color.WHITE);
-        pane.add(addTextFieldBtn);
+        JButton btnAddTextFieldBtn = new JButton("Metin Alanı Ekle");
+        btnAddTextFieldBtn.setBounds(15, 90, 150, 30);
+        btnAddTextFieldBtn.setBackground(COLOR);
+        btnAddTextFieldBtn.setForeground(Color.WHITE);
+        pane.add(btnAddTextFieldBtn);
 
-        JButton addLabelBtn = new JButton("Label Ekle");
-        addLabelBtn.setBounds(15, 130, 150, 30);
-        addLabelBtn.setBackground(COLOR);
-        addLabelBtn.setForeground(Color.WHITE);
-        pane.add(addLabelBtn);
+        JButton btnAddLabelBtn = new JButton("Label Ekle");
+        btnAddLabelBtn.setBounds(15, 130, 150, 30);
+        btnAddLabelBtn.setBackground(COLOR);
+        btnAddLabelBtn.setForeground(Color.WHITE);
+        pane.add(btnAddLabelBtn);
 
-        JButton addMenuBar = new JButton("Menü Bar Ekle");
-        addMenuBar.setBounds(15, 10, 150, 30);
-        addMenuBar.setBackground(COLOR);
-        addMenuBar.setForeground(Color.WHITE);
-        pane.add(addMenuBar);
+        JButton btnAddMenuBar = new JButton("Menü Bar Ekle");
+        btnAddMenuBar.setBounds(15, 10, 150, 30);
+        btnAddMenuBar.setBackground(COLOR);
+        btnAddMenuBar.setForeground(Color.WHITE);
+        pane.add(btnAddMenuBar);
 
-        JButton addComboBox = new JButton("ComboBox Ekle");
-        addComboBox.setBounds(15, 170, 150, 30);
-        addComboBox.setBackground(COLOR);
-        addComboBox.setForeground(Color.WHITE);
-        pane.add(addComboBox);
+        JButton btnAddComboBox = new JButton("ComboBox Ekle");
+        btnAddComboBox.setBounds(15, 170, 150, 30);
+        btnAddComboBox.setBackground(COLOR);
+        btnAddComboBox.setForeground(Color.WHITE);
+        pane.add(btnAddComboBox);
+
+        JButton btnAddCheckBox = new JButton("CheckBox Ekle");
+        btnAddCheckBox.setBounds(15,210,150,30);
+        btnAddCheckBox.setBackground(COLOR);
+        btnAddCheckBox.setForeground(Color.WHITE);
+        pane.add(btnAddCheckBox);
 
         GridPanel dropArea = new GridPanel(20);
         dropArea.setBounds(250, 50, frame.getWidth() - 320, frame.getHeight() - 150);
@@ -53,13 +59,13 @@ public class Main {
         gridOnOff.addActionListener(e -> dropArea.setShowGrid(gridOnOff.isSelected()));
         pane.add(gridOnOff);
 
-        JButton generateCodeButton = new JButton("Kod Çıktısını Kopyala");
-        generateCodeButton.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-60,150, 30);
+        JButton btnGenerateCode = new JButton("Kod Çıktısını Kopyala");
+        btnGenerateCode.setBounds((frame.getWidth() - 320)/2+175, frame.getHeight()-60,150, 30);
         CopyCode codeGenerator = new CopyCode(dropArea);
-        generateCodeButton.addActionListener(codeGenerator);
-        generateCodeButton.setBackground(COLOR);
-        generateCodeButton.setForeground(Color.WHITE);
-        pane.add(generateCodeButton);
+        btnGenerateCode.addActionListener(codeGenerator);
+        btnGenerateCode.setBackground(COLOR);
+        btnGenerateCode.setForeground(Color.WHITE);
+        pane.add(btnGenerateCode);
 
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
         separator.setBounds(200, 0, 1, frame.getHeight());
@@ -74,7 +80,7 @@ public class Main {
             public void componentResized(ComponentEvent e) {
                 int newHeight = frame.getHeight();
                 int newWidth = frame.getWidth();
-                generateCodeButton.setBounds((newWidth - 320) / 2 + 175, newHeight - 83, 170, 30);
+                btnGenerateCode.setBounds((newWidth - 320) / 2 + 175, newHeight - 83, 170, 30);
                 separator.setBounds(200, 0, 1, newHeight);
                 dropArea.setBounds(250, 50, newWidth - 320, newHeight - 150);
                 gridOnOff.setBounds(30, newHeight - 130, 150, 30);
@@ -82,28 +88,28 @@ public class Main {
             }
         });
 
-        btn.addMouseListener(new MouseAdapter() {
+        btnAddButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableButton();
             }
         });
 
-        addTextFieldBtn.addMouseListener(new MouseAdapter() {
+        btnAddTextFieldBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableTextField();
             }
         });
 
-        addLabelBtn.addMouseListener(new MouseAdapter() {
+        btnAddLabelBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableLabel();
             }
         });
 
-        addMenuBar.addMouseListener(new MouseAdapter() {
+        btnAddMenuBar.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (!add.isBlnMenu()) {
@@ -111,15 +117,22 @@ public class Main {
                 } else {
                     JPopupMenu popupMenu = new JPopupMenu();
                     JOptionPane.showMessageDialog(pane, "MenuBar daha önce oluşturulmuş");
-                    popupMenu.show(addMenuBar, e.getX(), e.getY());
+                    popupMenu.show(btnAddMenuBar, e.getX(), e.getY());
                 }
             }
         });
 
-        addComboBox.addMouseListener(new MouseAdapter() {
+        btnAddComboBox.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 add.createDraggableComboBox();
+            }
+        });
+
+        btnAddCheckBox.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                add.createDraggableCheckBox();
             }
         });
 

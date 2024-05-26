@@ -324,6 +324,64 @@ class Add {
         newComboBox.addMouseMotionListener(mouseAdapter);
     }
 
+    public void createDraggableCheckBox(){
+        JCheckBox newCheckBox = new JCheckBox();
+        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y_TEXTFIELD,100,30);
+        pane.add(newCheckBox);
+        pane.revalidate();
+        pane.repaint();
+
+        JPopupMenu popupMenu=createPopup(newCheckBox);
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            Point initialClick;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+                    initialClick = e.getPoint();
+                    getComponent(e).setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    selectedComponent = (JComponent) e.getComponent();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                getComponent(e).setCursor(Cursor.getDefaultCursor());
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int thisX = newCheckBox.getLocation().x;
+                int thisY = newCheckBox.getLocation().y;
+
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+
+
+                if (X < 0) X = 0;
+                if (blnMenu) {
+                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                } else if (Y < 0) Y = 0;
+                if (X + newCheckBox.getWidth() > pane.getWidth()) X = pane.getWidth() - newCheckBox.getWidth();
+                if (Y + newCheckBox.getHeight() > pane.getHeight()) Y = pane.getHeight() - newCheckBox.getHeight();
+
+                newCheckBox.setLocation(X, Y);
+            }
+
+            private Component getComponent(MouseEvent e) {
+                return e.getComponent();
+            }
+        };
+
+        newCheckBox.addMouseListener(mouseAdapter);
+        newCheckBox.addMouseMotionListener(mouseAdapter);
+    }
+
 
     private JPopupMenu createPopup(JComponent component) {
         JPopupMenu popupMenu = new JPopupMenu();
@@ -338,6 +396,8 @@ class Add {
                     ((JTextField) component).setText(newName);
                 } else if (component instanceof JLabel) {
                     ((JLabel) component).setText(newName);
+                } else if (component instanceof JCheckBox) {
+                    ((JCheckBox) component).setText(newName);
                 }
             }
         });
