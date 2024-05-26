@@ -3,10 +3,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-class Add {
+class Add{
     private static final int COMPONENT_X = 10;
-    private static final int COMPONENT_Y_BUTTON = 50;
-    private static final int COMPONENT_Y_TEXTFIELD = 50;
+    private static final int COMPONENT_Y= 50;
     private static final int MENUBAR_HEIGHT = 30;
     private static JComponent selectedComponent;
     private final Container pane;
@@ -21,7 +20,7 @@ class Add {
 
     public void createDraggableButton() {
         JButton newBtn = new JButton("Button");
-        newBtn.setBounds(COMPONENT_X, COMPONENT_Y_BUTTON, 100, 30);
+        newBtn.setBounds(COMPONENT_X, COMPONENT_Y, 100, 30);
         pane.add(newBtn);
         pane.repaint();
 
@@ -78,7 +77,7 @@ class Add {
 
     public void createDraggableTextField() {
         JTextField newTextField = new JTextField();
-        newTextField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+40, 100, 30);
+        newTextField.setBounds(COMPONENT_X, COMPONENT_Y+40, 100, 30);
         pane.add(newTextField);
         pane.repaint();
 
@@ -135,7 +134,7 @@ class Add {
     public void createDraggableLabel() {
         JLabel newLabel = new JLabel("Label");
         newLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 1));
-        newLabel.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+80, 100, 30);
+        newLabel.setBounds(COMPONENT_X, COMPONENT_Y+80, 100, 30);
         pane.add(newLabel);
         pane.repaint();
 
@@ -267,7 +266,7 @@ class Add {
 
     public void createDraggableComboBox(){
         JComboBox newComboBox=new JComboBox(newItem);
-        newComboBox.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD+120,100,30);
+        newComboBox.setBounds(COMPONENT_X, COMPONENT_Y+120,100,30);
         pane.add(newComboBox);
         pane.repaint();
         pane.revalidate();
@@ -326,7 +325,7 @@ class Add {
 
     public void createDraggableCheckBox(){
         JCheckBox newCheckBox = new JCheckBox();
-        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y_TEXTFIELD+160,100,30);
+        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y+160,100,30);
         pane.add(newCheckBox);
         pane.revalidate();
         pane.repaint();
@@ -384,7 +383,7 @@ class Add {
 
     public void createDraggablePasswordField() {
         JPasswordField newPasswordField = new JPasswordField();
-        newPasswordField.setBounds(COMPONENT_X, COMPONENT_Y_TEXTFIELD + 200, 100, 30);
+        newPasswordField.setBounds(COMPONENT_X, COMPONENT_Y + 200, 100, 30);
         pane.add(newPasswordField);
         pane.revalidate();
         pane.repaint();
@@ -615,21 +614,5 @@ class Add {
         });
         PopupComboBox.add(removeComboBox);
         return PopupComboBox;
-    }
-
-    static class CustomMenuBar extends JMenuBar {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setColor(Color.BLACK);
-            for (int i = 0; i < getMenuCount(); i++) {
-                JMenu menu = getMenu(i);
-                if (menu != null) {
-                    Rectangle bounds = menu.getBounds();
-                    g2d.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
-                }
-            }
-        }
     }
 }
