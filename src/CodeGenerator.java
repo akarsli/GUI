@@ -53,6 +53,9 @@ public class CodeGenerator implements ActionListener {
             } else if (comp instanceof JComboBox) {
                 JComboBox<?> comboBox = (JComboBox<?>) comp;
                 code.append(generateComboBoxCode(comboBox));
+            } else if(comp instanceof JCheckBox) {
+                JCheckBox checkBox= (JCheckBox) comp;
+                code.append(generateCheckBoxCode(checkBox));
             }
         }
 
@@ -186,6 +189,17 @@ public class CodeGenerator implements ActionListener {
                 comboBox.hashCode()
         ));
         return comboBoxCode.toString();
+    }
+
+    private String generateCheckBoxCode(JCheckBox checkBox){
+        return String.format(
+                "JCheckBox checkBox%d = new JCheckBox(\"%s\");\n" +
+                        "checkBox%d.setBounds(%d, %d, %d, %d);\n" +
+                        "pane.add(checkBox%d);\n",
+                checkBox.hashCode(), checkBox.getText(),
+                checkBox.hashCode(), checkBox.getX(), checkBox.getY(), checkBox.getWidth(), checkBox.getHeight(),
+                checkBox.hashCode()
+        );
     }
 
     public String getGeneratedCode() {
