@@ -326,7 +326,7 @@ class Add {
 
     public void createDraggableCheckBox(){
         JCheckBox newCheckBox = new JCheckBox();
-        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y_TEXTFIELD,100,30);
+        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y_TEXTFIELD+160,100,30);
         pane.add(newCheckBox);
         pane.revalidate();
         pane.repaint();
