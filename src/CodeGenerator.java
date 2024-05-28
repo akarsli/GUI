@@ -7,6 +7,7 @@ public class CodeGenerator implements ActionListener {
     private final Container dropArea;
     private StringBuilder code;
     private boolean isJMenuBar = false;
+
     public CodeGenerator(Container dropArea) {
         this.dropArea = dropArea;
     }
@@ -49,11 +50,11 @@ public class CodeGenerator implements ActionListener {
             } else if (comp instanceof JComboBox) {
                 JComboBox<?> comboBox = (JComboBox<?>) comp;
                 code.append(generateComboBoxCode(comboBox));
-            } else if(comp instanceof JCheckBox) {
-                JCheckBox checkBox= (JCheckBox) comp;
+            } else if (comp instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) comp;
                 code.append(generateCheckBoxCode(checkBox));
             } else if (comp instanceof JPasswordField) {
-                JPasswordField passwordField= (JPasswordField) comp;
+                JPasswordField passwordField = (JPasswordField) comp;
                 code.append(generatePasswordField(passwordField));
             } else if (comp instanceof JTextField) {
                 JTextField textField = (JTextField) comp;
@@ -76,22 +77,25 @@ public class CodeGenerator implements ActionListener {
                 frame.setFocusable(true);
                 frame.setVisible(true);
                 }}
-                class CustomMenuBar extends JMenuBar {
-                @Override
-                protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setColor(Color.BLACK);
-                for (int i = 0; i < getMenuCount(); i++) {
-                JMenu menu = getMenu(i);
-                if (menu != null) {
-                Rectangle bounds = menu.getBounds();
-                g2d.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
-                // Remove left border of the first menu
-                if (i == 0) {
-                g2d.clearRect(bounds.x, bounds.y, 1, bounds.height);
-                }}}}}
                 """);
+        if (isJMenuBar) {
+            code.append("""
+                    class CustomMenubar extends JMenuBar {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setColor(Color.BLACK);
+                    for (int i = 0; i < getMenuCount(); i++) {
+                    JMenu menu = getMenu(i);
+                    if (menu != null) {
+                    Rectangle bounds = menu.getBounds();
+                    g2d.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+                    if (i == 0) {
+                    g2d.clearRect(bounds.x, bounds.y, 1, bounds.height);
+                    }}}}}
+                    """);
+        }
     }
 
     private String generateButtonCode(JButton button) {
@@ -130,7 +134,7 @@ public class CodeGenerator implements ActionListener {
     private String generateMenuBarCode(JMenuBar menubar) {
         StringBuilder menuBarCode = new StringBuilder();
         menuBarCode.append(String.format(
-                "CustomMenuBar menubar = new CustomMenuBar();\n" +
+                "CustomMenubar menubar = new CustomMenubar();\n" +
                         "menubar.setBounds(%d, %d, frame.getWidth(), %d);\n",
                 menubar.getX(), menubar.getY(), menubar.getHeight()
         ));
@@ -193,7 +197,7 @@ public class CodeGenerator implements ActionListener {
         return comboBoxCode.toString();
     }
 
-    private String generateCheckBoxCode(JCheckBox checkBox){
+    private String generateCheckBoxCode(JCheckBox checkBox) {
         return String.format(
                 "JCheckBox checkBox%d = new JCheckBox(\"%s\");\n" +
                         "checkBox%d.setBounds(%d, %d, %d, %d);\n" +
@@ -204,7 +208,7 @@ public class CodeGenerator implements ActionListener {
         );
     }
 
-    private String generatePasswordField(JPasswordField passwordField){
+    private String generatePasswordField(JPasswordField passwordField) {
         return String.format(
                 "JPasswordField passwordField%d = new JPasswordField(\"%s\");\n" +
                         "passwordField%d.setBounds(%d, %d, %d, %d);\n" +
