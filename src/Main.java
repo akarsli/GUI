@@ -3,8 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main {
-    private static final Color COLOR = new Color(30, 136, 229);
-
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUI");
         Container pane = frame.getContentPane();
@@ -14,43 +12,43 @@ public class Main {
 
         JButton btnAddButton = new JButton("Buton Ekle");
         btnAddButton.setBounds(15, 50, 150, 30);
-        btnAddButton.setBackground(COLOR);
+        btnAddButton.setBackground(Bean.getColor());
         btnAddButton.setForeground(Color.WHITE);
         pane.add(btnAddButton);
 
         JButton btnAddTextFieldBtn = new JButton("Metin Alanı Ekle");
         btnAddTextFieldBtn.setBounds(15, 90, 150, 30);
-        btnAddTextFieldBtn.setBackground(COLOR);
+        btnAddTextFieldBtn.setBackground(Bean.getColor());
         btnAddTextFieldBtn.setForeground(Color.WHITE);
         pane.add(btnAddTextFieldBtn);
 
         JButton btnAddLabelBtn = new JButton("Label Ekle");
         btnAddLabelBtn.setBounds(15, 130, 150, 30);
-        btnAddLabelBtn.setBackground(COLOR);
+        btnAddLabelBtn.setBackground(Bean.getColor());
         btnAddLabelBtn.setForeground(Color.WHITE);
         pane.add(btnAddLabelBtn);
 
         JButton btnAddMenuBar = new JButton("Menü Bar Ekle");
         btnAddMenuBar.setBounds(15, 10, 150, 30);
-        btnAddMenuBar.setBackground(COLOR);
+        btnAddMenuBar.setBackground(Bean.getColor());
         btnAddMenuBar.setForeground(Color.WHITE);
         pane.add(btnAddMenuBar);
 
         JButton btnAddComboBox = new JButton("ComboBox Ekle");
         btnAddComboBox.setBounds(15, 170, 150, 30);
-        btnAddComboBox.setBackground(COLOR);
+        btnAddComboBox.setBackground(Bean.getColor());
         btnAddComboBox.setForeground(Color.WHITE);
         pane.add(btnAddComboBox);
 
         JButton btnAddCheckBox = new JButton("CheckBox Ekle");
         btnAddCheckBox.setBounds(15, 210, 150, 30);
-        btnAddCheckBox.setBackground(COLOR);
+        btnAddCheckBox.setBackground(Bean.getColor());
         btnAddCheckBox.setForeground(Color.WHITE);
         pane.add(btnAddCheckBox);
 
         JButton btnAddPasswordField = new JButton("PasswordField Ekle");
         btnAddPasswordField.setBounds(15, 250, 150, 30);
-        btnAddPasswordField.setBackground(COLOR);
+        btnAddPasswordField.setBackground(Bean.getColor());
         btnAddPasswordField.setForeground(Color.WHITE);
         pane.add(btnAddPasswordField);
 
@@ -70,7 +68,7 @@ public class Main {
         btnGenerateCode.setBounds((frame.getWidth() - 320) / 2 + 175, frame.getHeight() - 60, 150, 30);
         CopyCode codeGenerator = new CopyCode(dropArea);
         btnGenerateCode.addActionListener(codeGenerator);
-        btnGenerateCode.setBackground(COLOR);
+        btnGenerateCode.setBackground(Bean.getColor());
         btnGenerateCode.setForeground(Color.WHITE);
         pane.add(btnGenerateCode);
 

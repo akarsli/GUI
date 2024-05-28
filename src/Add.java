@@ -4,15 +4,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 class Add{
-    private static final int COMPONENT_X = 10;
-    private static final int COMPONENT_Y= 50;
-    private static final int MENUBAR_HEIGHT = 30;
-    private static JComponent selectedComponent;
+    public static JComponent selectedComponent;
     private final Container pane;
     CustomMenuBar newMenuBar;
     public boolean blnMenu;
     JMenu newMenu;
-    String[] newItem={};
 
     public Add(Container pane) {
         this.pane = pane;
@@ -20,7 +16,7 @@ class Add{
 
     public void createDraggableButton() {
         JButton newBtn = new JButton("Button");
-        newBtn.setBounds(COMPONENT_X, COMPONENT_Y, 100, 30);
+        newBtn.setBounds(Bean.getComponentX(), Bean.getComponentY(), 100, 30);
         pane.add(newBtn);
         pane.repaint();
 
@@ -58,7 +54,7 @@ class Add{
 
                 if (X < 0) X = 0;
                 if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newBtn.getWidth() > pane.getWidth()) X = pane.getWidth() - newBtn.getWidth();
                 if (Y + newBtn.getHeight() > pane.getHeight()) Y = pane.getHeight() - newBtn.getHeight();
@@ -77,7 +73,7 @@ class Add{
 
     public void createDraggableTextField() {
         JTextField newTextField = new JTextField();
-        newTextField.setBounds(COMPONENT_X, COMPONENT_Y+40, 100, 30);
+        newTextField.setBounds(Bean.getComponentX(), Bean.getComponentY()+40, 100, 30);
         pane.add(newTextField);
         pane.repaint();
 
@@ -114,7 +110,7 @@ class Add{
                 int Y = thisY + yMoved;
 
                 if (X < 0) X = 0;if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newTextField.getWidth() > pane.getWidth()) X = pane.getWidth() - newTextField.getWidth();
                 if (Y + newTextField.getHeight() > pane.getHeight()) Y = pane.getHeight() - newTextField.getHeight();
@@ -134,7 +130,7 @@ class Add{
     public void createDraggableLabel() {
         JLabel newLabel = new JLabel("Label");
         newLabel.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 1));
-        newLabel.setBounds(COMPONENT_X, COMPONENT_Y+80, 100, 30);
+        newLabel.setBounds(Bean.getComponentX(), Bean.getComponentY()+80, 100, 30);
         pane.add(newLabel);
         pane.repaint();
 
@@ -172,7 +168,7 @@ class Add{
 
                 if (X < 0) X = 0;
                 if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newLabel.getWidth() > pane.getWidth()) X = pane.getWidth() - newLabel.getWidth();
                 if (Y + newLabel.getHeight() > pane.getHeight()) Y = pane.getHeight() - newLabel.getHeight();
@@ -265,8 +261,8 @@ class Add{
     }
 
     public void createDraggableComboBox(){
-        JComboBox newComboBox=new JComboBox(newItem);
-        newComboBox.setBounds(COMPONENT_X, COMPONENT_Y+120,100,30);
+        JComboBox newComboBox=new JComboBox(Bean.getNewItem());
+        newComboBox.setBounds(Bean.getComponentX(), Bean.getComponentY()+120,100,30);
         pane.add(newComboBox);
         pane.repaint();
         pane.revalidate();
@@ -306,7 +302,7 @@ class Add{
 
                 if (X < 0) X = 0;
                 if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newComboBox.getWidth() > pane.getWidth()) X = pane.getWidth() - newComboBox.getWidth();
                 if (Y + newComboBox.getHeight() > pane.getHeight()) Y = pane.getHeight() - newComboBox.getHeight();
@@ -325,7 +321,7 @@ class Add{
 
     public void createDraggableCheckBox(){
         JCheckBox newCheckBox = new JCheckBox();
-        newCheckBox.setBounds(COMPONENT_X,COMPONENT_Y+160,100,30);
+        newCheckBox.setBounds(Bean.getComponentX(),Bean.getComponentY()+160,100,30);
         pane.add(newCheckBox);
         pane.revalidate();
         pane.repaint();
@@ -364,7 +360,7 @@ class Add{
 
                 if (X < 0) X = 0;
                 if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newCheckBox.getWidth() > pane.getWidth()) X = pane.getWidth() - newCheckBox.getWidth();
                 if (Y + newCheckBox.getHeight() > pane.getHeight()) Y = pane.getHeight() - newCheckBox.getHeight();
@@ -383,7 +379,7 @@ class Add{
 
     public void createDraggablePasswordField() {
         JPasswordField newPasswordField = new JPasswordField();
-        newPasswordField.setBounds(COMPONENT_X, COMPONENT_Y + 200, 100, 30);
+        newPasswordField.setBounds(Bean.getComponentX(), Bean.getComponentY() + 200, 100, 30);
         pane.add(newPasswordField);
         pane.revalidate();
         pane.repaint();
@@ -421,7 +417,7 @@ class Add{
 
                 if (X < 0) X = 0;
                 if (blnMenu) {
-                    if (Y < MENUBAR_HEIGHT) Y = MENUBAR_HEIGHT;
+                    if (Y < Bean.getMenubarHeight()) Y = Bean.getMenubarHeight();
                 } else if (Y < 0) Y = 0;
                 if (X + newPasswordField.getWidth() > pane.getWidth()) X = pane.getWidth() - newPasswordField.getWidth();
                 if (Y + newPasswordField.getHeight() > pane.getHeight()) Y = pane.getHeight() - newPasswordField.getHeight();
